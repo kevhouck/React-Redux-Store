@@ -3,22 +3,33 @@ var appLevelMiddleware = require('./middleware/app');
 var unsecuredRoutes = require('./routes/unsecured');
 var coreRoutes = require('./routes/core');
 var adminRoutes = require('./routes/admin');
-var app = express();
+var mongoose = require('mongoose');
+mongoose.Promise = require("bluebird");
 
+// setup db
+mongoose.connect('mongodb://localhost/lexies_cupcakes');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
 
-// setup app level middleware
-app.use(appLevelMiddleware.auth);
+// start the app
+db.once('open', function() {
+    var app = express();
 
-// setup unsecured routes
-app.use('/unsecured', unsecuredRoutes.createRouter());
+    // setup app level middleware
+    app.use(appLevelMiddleware.auth);
 
-// setup core routes
-app.use('/api', coreRoutes.createRouter());
+    // setup unsecured routes
+    app.use('/unsecured', unsecuredRoutes.createRouter());
 
-// setup admin routes
-app.use('/admin', adminRoutes.createRouter());
+    // setup core routes
+    app.use('/api', coreRoutes.createRouter());
 
-// finally start the server
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
+    // setup admin routes
+    app.use('/admin', adminRoutes.createRouter());
+
+    // finally start the server
+    app.listen(3000, function () {
+        console.log('listening on port 3000');
+    });
 });
+
