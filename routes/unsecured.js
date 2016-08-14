@@ -1,11 +1,11 @@
 var express = require('express');
+var userController = require('../controllers/app/user');
 
 var createRouter = function () {
     var router = express.Router();
 
-    router.get('/', function (req, res) {
-        res.send('Hello World!');
-    });
+    router.post('/signup', userController.signup);
+    router.post('/login', userController.login);
 
     return router;
 
