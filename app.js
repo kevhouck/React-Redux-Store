@@ -5,6 +5,9 @@ var coreRoutes = require('./routes/core');
 var adminRoutes = require('./routes/admin');
 var mongoose = require('mongoose');
 mongoose.Promise = require("bluebird");
+var bodyParser = require('body-parser');
+var morgan = require('morgan');
+
 
 // setup db
 mongoose.connect('mongodb://localhost/lexies_cupcakes');
@@ -17,9 +20,12 @@ db.once('open', function() {
 
     // setup app level middleware
     app.use(appLevelMiddleware.auth);
+    app.use(bodyParser.json()); // parse json request body
+    app.use(morgan('combined')); // logging
+
 
     // setup unsecured routes
-    app.use('/unsecured', unsecuredRoutes.createRouter());
+    app.use('/api', unsecuredRoutes.createRouter());
 
     // setup core routes
     app.use('/api', coreRoutes.createRouter());
