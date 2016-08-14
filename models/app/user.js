@@ -20,6 +20,11 @@ var userSchema = mongoose.Schema({
         type: String,
         required: [true, 'Must provide password']
     },
+    authLevel: {
+        type: String,
+        required: [true],
+        default: 'normal'
+    },
     createdOn: {
         type: Date,
         required: [true]

@@ -1,4 +1,5 @@
 var User = require('../../models/app/user');
+var jwt = require('jsonwebtoken');
 
 var signup = function (req, res) {
     var b = req.body;
@@ -27,7 +28,13 @@ var login = function (req, res) {
                 return;
             }
             if (user.password === b.password) {
-                res.send(user);
+                jwt.sign({ user: user.emailAddress, authLevel: user.authLevel }, 'secret', { algorithm: 'HS512' }, function (err, token) {
+                    var resObj = {
+                        user: user,
+                        jwt: token
+                    };
+                    res.send(resObj);
+                });
             } else {
                 res.status(401).send('Could not find a user with that email and password');
             }
