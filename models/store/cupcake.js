@@ -1,9 +1,18 @@
 var mongoose = require('mongoose');
 
 var cupcakeSchema = mongoose.Schema({
-    name: String,
-    description: String,
-    price: String
+    name: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    }
 });
 
 var Cupcake = mongoose.model('Cupcake', cupcakeSchema);
