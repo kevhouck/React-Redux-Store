@@ -3,31 +3,31 @@ var mongoose = require('mongoose');
 var userSchema = mongoose.Schema({
     firstName: {
         type: String,
-        required: [true, 'Must provide first name']
+        required: true
     },
     lastName: {
         type: String,
-        required: [true, 'Must provide last name']
+        required: true
     },
     emailAddress: {
         type: String,
-        required: [true, 'Must provide email address'],
+        required: true,
         index: {
             unique: true
         }
     },
     hashedPassword: {
         type: String,
-        required: [true, 'Must provide password']
+        required: true
     },
     authLevel: {
         type: String,
-        required: [true],
+        required: true,
         default: 'normal'
     },
     createdOn: {
         type: Date,
-        required: [true]
+        required: true
     }
 });
 
