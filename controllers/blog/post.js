@@ -9,7 +9,7 @@ var create = function (req, res) {
         submittedOn: new Date()
     });
     newPost.save().then(function (post) {
-        res.status(200).send(post);
+        res.send(post);
     }).catch(function (err) {
         res.status(400).send(err);
     })
@@ -39,9 +39,12 @@ var getMany = function (req, res) {
     Post.find({})
         .sort('-submittedOn')
         .exec(function (err, posts) {
-            if(err) {
-                res.status(404).send('Could not find posts');
+            if (err) {
+                res.status(500);
                 return;
+            }
+            if (!posts) {
+                res.status(404).send('Could not find posts');
             }
             res.send(posts);
     })
@@ -51,8 +54,11 @@ var getOne = function (req, res) {
     var p = req.params;
     Post.findOne({ _id: p.id}, function (err, post) {
         if (err) {
-            res.status(404).send('Could not find post with _id');
+            res.status(500);
             return;
+        }
+        if (!post) {
+            res.status(404).send('Could not find post with _id');
         }
         res.send(post);
     })
@@ -61,10 +67,13 @@ var getOne = function (req, res) {
 var deleteOne = function (req, res) {
     var p = req.params;
     Post.findOne({ _id: p.id})
-        .remove(function (err) {
+        .exec(function (err, post) {
             if (err) {
-                res.set(400).send(err);
+                res.set(500);
                 return;
+            }
+            if (!post) {
+                res.status(404).send('Could not find post with _id');
             }
             res.send('Deleted post')
         })
