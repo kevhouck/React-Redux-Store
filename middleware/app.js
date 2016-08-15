@@ -9,14 +9,15 @@ var authMiddleware = function (req, res, next) {
         next();
         return;
     }
-    jwt.verify(token, 'secret', function (err, decoded) {
-        if (err) {
-            res.sendStatus(401);
-            return;
-        }
-        res.authLevel = decoded.authLevel;
-        next();
-    });
+
+        jwt.verify(token, 'secret', function (err, decoded) {
+            if (err) {
+                res.sendStatus(401);
+                return;
+            }
+            req.authLevel = decoded.authLevel;
+            next();
+        });
 };
 
 module.exports.auth = authMiddleware;

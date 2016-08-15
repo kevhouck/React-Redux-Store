@@ -32,8 +32,7 @@ var signup = function (req, res) {
 
 var login = function (req, res) {
     var b = req.body;
-    User.where({emailAddress: b.emailAddress})
-        .findOne(function (err, user) {
+    User.findOne(function (err, user) {
             if (err) {
                 res.status(401).send('Could not find a user with that email and password');
                 return;
