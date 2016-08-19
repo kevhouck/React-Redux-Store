@@ -15,7 +15,7 @@ var path = {
     DEST: 'dist',
     DEST_BUILD: 'dist/build',
     DEST_SRC: 'dist/src',
-    ENTRY_POINT: './src/js/app.js'
+    ENTRY_POINT: './src/js/index.js'
 };
 
 gulp.task('copy', function(){
