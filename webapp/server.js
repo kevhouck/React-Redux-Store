@@ -14,14 +14,13 @@ app.get('/*', function(req, res) {
     res.sendFile(__dirname + '/dist/index.html');
 });
 
-
 var server = new WebpackDevServer(webpack(config), {
     contentBase: __dirname,
     hot: true,
+    historyApiFallback: true,
     quiet: false,
     noInfo: false,
     publicPath: "/assets/",
-
     stats: { colors: true }
 });
 

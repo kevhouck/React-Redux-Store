@@ -1,15 +1,10 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-
-var HtmlPlugin = new HtmlWebpackPlugin({
-    template: __dirname + '/src/index.html',
-    filename: 'index.html',
-    inject: 'body'
-});
+var webpack = require('webpack');
 
 module.exports = {
     entry: [
         './src/js/index.js',
-        'webpack/hot/dev-server',
+        'webpack/hot/only-dev-server',
         'webpack-dev-server/client?http://localhost:8081'
     ],
     output: {
@@ -25,5 +20,12 @@ module.exports = {
             { test: /\.jpg$/, loader: "file-loader" }
         ]
     },
-    plugins: [HtmlPlugin]
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: __dirname + '/src/index.html',
+            filename: 'index.html',
+            inject: 'body'
+        }),
+        new webpack.HotModuleReplacementPlugin()
+    ]
 };
