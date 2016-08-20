@@ -4,7 +4,7 @@ var App = React.createClass({
     render: function() {
         return (
             <div>
-                <div>App</div>
+                <div id="app">App</div>
                 {this.props.children}
             </div>
         )
