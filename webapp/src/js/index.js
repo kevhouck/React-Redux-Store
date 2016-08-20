@@ -1,8 +1,5 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-// cannot use bootstrap without polluting the global scope unfortunately
-window.$ = window.jQuery = require('jquery');
-require('bootstrap');
 var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;

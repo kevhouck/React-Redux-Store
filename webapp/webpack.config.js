@@ -8,15 +8,21 @@ var HtmlPlugin = new HtmlWebpackPlugin({
 
 module.exports = {
     entry: [
-        './src/js/index.js'
+        './src/js/index.js',
+        'webpack/hot/dev-server',
+        'webpack-dev-server/client?http://localhost:8081'
     ],
     output: {
         path: __dirname + '/dist',
-        filename: "index_bundle.js"
+        filename: "index_bundle.js",
+        publicPath: "http://localhost:8081/assets/",
     },
     module: {
         loaders: [
-            {test: /\.js$/, include: __dirname + '/src/js', loader: "babel-loader"},
+            {test: /\.js$/, include: __dirname + '/src/js', loaders: ['react-hot', 'babel']},
+            { test: /\.css$/, loader: "style-loader!css-loader" },
+            { test: /\.png$/, loader: "url-loader?limit=100000" },
+            { test: /\.jpg$/, loader: "file-loader" }
         ]
     },
     plugins: [HtmlPlugin]
