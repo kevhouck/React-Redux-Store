@@ -35,7 +35,8 @@ gulp.task('watch', function() {
         watcher.bundle()
             .pipe(source(path.OUT))
             .pipe(gulp.dest(path.DEST_SRC));
-        console.log('Updated');
+        var date = new Date();
+        console.log('[' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '] Updated');
     })
         .bundle()
         .pipe(source(path.OUT))
