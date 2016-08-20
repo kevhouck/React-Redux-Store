@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 mongoose.Promise = require("bluebird");
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
+var cors = require('cors');
 
 
 // setup db
@@ -22,7 +23,7 @@ db.once('open', function() {
     app.use(appLevelMiddleware.auth);
     app.use(bodyParser.json()); // parse json request body
     app.use(morgan('combined')); // logging
-
+    app.use(cors());
 
     // setup unsecured routes
     app.use('/api', unsecuredRoutes.createRouter());
