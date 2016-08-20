@@ -3,7 +3,7 @@ var React = require('react');
 var Home = React.createClass({
     render: function () {
         return (
-            <div>Homeee</div>
+            <div>Home</div>
         )
     }
 });

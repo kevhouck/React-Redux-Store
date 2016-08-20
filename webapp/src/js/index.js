@@ -8,7 +8,7 @@ var browserHistory = ReactRouter.browserHistory;
 var Redirect = ReactRouter.Redirect;
 
 // components
-var App = require('./app');
+var App = require('./app/app');
 var Home = require('./home/home');
 var Blog = require('./blog/blog');
 var Store = require('./store/store');

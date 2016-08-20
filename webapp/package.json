@@ -5,6 +5,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
+    "build": "webpack build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,7 +16,8 @@
     "react": "^15.3.0",
     "react-bootstrap": "^0.30.2",
     "react-dom": "^15.3.0",
-    "react-router": "^2.6.1"
+    "react-router": "^2.6.1",
+    "react-router-bootstrap": "^0.23.1"
   },
   "devDependencies": {
     "babel-core": "^6.13.2",
