@@ -17,7 +17,8 @@ module.exports = {
             {test: /\.js$/, include: __dirname + '/src/js', loaders: ['react-hot', 'babel']},
             { test: /\.css$/, loader: "style-loader!css-loader" },
             { test: /\.png$/, loader: "url-loader?limit=100000" },
-            { test: /\.jpg$/, loader: "file-loader" }
+            { test: /\.jpg$/, loader: "file-loader" },
+            { test: /\.json$/, loader: 'json' }
         ]
     },
     plugins: [

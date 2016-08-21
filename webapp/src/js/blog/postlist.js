@@ -5,7 +5,7 @@ var PostList = React.createClass({
     render: function () {
         var postNodes = this.props.posts.map(function (post) {
             return (
-                <Post key={post._id} author={post.title} content={post.content}/>
+                <Post key={post._id} author={post.title} content={post.content} submittedOn={post.submittedOn}/>
             )
         });
         return (

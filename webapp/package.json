@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "build": "webpack build",
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,9 +14,11 @@
   "dependencies": {
     "axios": "^0.13.1",
     "bootstrap": "^3.3.7",
+    "json-loader": "^0.5.4",
     "react": "^15.3.0",
     "react-bootstrap": "^0.30.2",
     "react-dom": "^15.3.0",
+    "react-markdown": "^2.4.2",
     "react-router": "^2.6.1",
     "react-router-bootstrap": "^0.23.1"
   },

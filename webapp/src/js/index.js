@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
-var IndexRoute = ReactRouter.IndexRoute;
+var IndexRedirect = ReactRouter.IndexRedirect;
 var browserHistory = ReactRouter.browserHistory;
 var Redirect = ReactRouter.Redirect;
 
@@ -18,11 +18,12 @@ ReactDOM.render(
     (
         <Router history={browserHistory}>
             <Route path="/" component={App}>
-                <IndexRoute component={Home}/>
+                <IndexRedirect to="/home" />
+                <Route path="home" component={Home} />
                 <Route path="blog" component={Blog} />
                 <Route path="store" component={Store} />
                 <Route path="about" component={About} />
-                <Redirect from="*" to ="/" component={Home}/>
+                <Redirect from="*" to ="/home" component={Home}/>
             </Route>
         </Router>
     ),
