@@ -5,8 +5,11 @@ var Post = React.createClass({
     render: function () {
         var divStyle = {
             display: "block",
-            margin: 50,
-            overflow: "auto"
+            marginTop: 50,
+            padding: 25,
+            overflow: "auto",
+            backgroundColor: "#e6e6e6",
+            borderRadius: 10
         };
 
         var titleStyle = {
@@ -16,7 +19,12 @@ var Post = React.createClass({
         var dateStyle = {
             display: "inline",
             float: "right",
-            margin: "0 50 50 50"
+        };
+
+        var contentStyle = {
+            padding: 10,
+            paddingTop: 25,
+            borderRadius: 25,
         };
 
         var date = new Date(this.props.submittedOn);
@@ -36,7 +44,7 @@ var Post = React.createClass({
         return(
             <div style={divStyle}>
                 <div><h3 style={titleStyle}>{this.props.author}</h3><p style={dateStyle}>Posted on {prettyDate}</p></div>
-                <Markdown source={this.props.content}/>
+                <div style={contentStyle}><Markdown source={this.props.content}/></div>
             </div>
         )
     }
