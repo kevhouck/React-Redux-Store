@@ -5,7 +5,7 @@ var userController = require('../controllers/app/user');
 var postController = require('../controllers/blog/post');
 var itemController = require('../controllers/store/item');
 
-var setupRoutes = function (router) {
+var setupRoutes = function () {
     var admin = adminMiddleware.auth
     var user = userMiddleware.auth
 
