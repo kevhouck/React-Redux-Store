@@ -36,8 +36,16 @@ var update = function (req, res) {
 };
 
 var getMany = function (req, res) {
+    var q = req.query
+    if (!q.page) {
+        res.status(400).send('Must specify a page value in the query string')
+        return
+    }
+
     Post.find({})
         .sort('-submittedOn')
+        .skip((q.page - 1) * 10) // don't have a large collection so this is okay, otherwise will not scale
+        .limit(10)
         .exec(function (err, posts) {
             if (err) {
                 res.status(500);
@@ -45,8 +53,13 @@ var getMany = function (req, res) {
             }
             if (!posts) {
                 res.status(404).send('Could not find posts');
+                return
             }
-            res.send(posts);
+
+            var noMore = (posts.length < 10)
+            res.send({
+                posts: posts
+            });
     })
 };
 
