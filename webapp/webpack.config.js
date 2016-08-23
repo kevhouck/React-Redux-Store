@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: [
-        './src/js/index.js',
+        './src/index.js',
         'webpack/hot/only-dev-server',
         'webpack-dev-server/client?http://localhost:8081'
     ],
@@ -14,7 +14,7 @@ module.exports = {
     },
     module: {
         loaders: [
-            {test: /\.js$/, include: __dirname + '/src/js', loaders: ['react-hot', 'babel']},
+            { test: /\.js$/, exclude: /node_modules/, loaders: ['react-hot', 'babel']},
             { test: /\.css$/, loader: "style-loader!css-loader" },
             { test: /\.png$/, loader: "url-loader?limit=100000" },
             { test: /\.jpg$/, loader: "file-loader" },
@@ -28,5 +28,6 @@ module.exports = {
             inject: 'body'
         }),
         new webpack.HotModuleReplacementPlugin()
-    ]
+    ],
+    devtool : 'source-map'
 };
