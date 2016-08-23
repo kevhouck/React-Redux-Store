@@ -1,8 +1,8 @@
-var Cupcake = require('../../models/store/cupcake');
+var Item = require('../../models/store/item');
 
 var create = function (req, res) {
     var b = req.body;
-    var cupcake = new Cupcake({
+    var cupcake = new Item({
         name: b.name,
         description: b.description,
         price: b.price
@@ -17,7 +17,7 @@ var create = function (req, res) {
 var update = function (req, res) {
     var b = req.body;
     var p = req.params;
-    Cupcake.findOne({_id: p.id}, function (err, cupcake) {
+    Item.findOne({_id: p.id}, function (err, cupcake) {
         if (err) {
             res.status(500);
             return;
@@ -38,7 +38,7 @@ var update = function (req, res) {
 };
 
 var getMany = function (req, res) {
-    Cupcake.find({}, function (err, cupcakes) {
+    Item.find({}, function (err, cupcakes) {
         if (err) {
             res.status(500);
             return;
@@ -49,7 +49,7 @@ var getMany = function (req, res) {
 
 var deleteOne = function (req, res) {
     var p = req.params;
-    Cupcake.findOne({_id: p.id})
+    Item.findOne({_id: p.id})
         .exec(function (err, cupcake) {
             if (err) {
                 res.status(400);

@@ -1,8 +1,6 @@
 var express = require('express');
 var appLevelMiddleware = require('./middleware/app');
-var unsecuredRoutes = require('./routes/unsecured');
-var coreRoutes = require('./routes/core');
-var adminRoutes = require('./routes/admin');
+var setupRoutes = require('./routes')
 var mongoose = require('mongoose');
 mongoose.Promise = require("bluebird");
 var bodyParser = require('body-parser');
@@ -25,14 +23,9 @@ db.once('open', function() {
     app.use(morgan('combined')); // logging
     app.use(cors());
 
-    // setup unsecured routes
-    app.use('/api', unsecuredRoutes.createRouter());
-
-    // setup core routes
-    app.use('/api', coreRoutes.createRouter());
-
-    // setup admin routes
-    app.use('/admin', adminRoutes.createRouter());
+    // setup routes
+    var router = express.Router;
+    app.use('/api', setupRoutes())
 
     // finally start the server
     app.listen(3000, function () {

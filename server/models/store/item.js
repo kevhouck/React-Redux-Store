@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var cupcakeSchema = mongoose.Schema({
+var itemSchema = mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -15,7 +15,7 @@ var cupcakeSchema = mongoose.Schema({
     }
 });
 
-cupcakeSchema.options.toJSON = {
+itemSchema.options.toJSON = {
     virtuals: true,
     transform: function (doc, ret, options ) {
         ret.id = ret._id
@@ -23,6 +23,6 @@ cupcakeSchema.options.toJSON = {
     }
 };
 
-var Cupcake = mongoose.model('Cupcake', cupcakeSchema);
+var Item = mongoose.model('Item', itemSchema);
 
-module.exports = Cupcake;
+module.exports = Item;
