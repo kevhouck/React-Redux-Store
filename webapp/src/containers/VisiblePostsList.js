@@ -10,12 +10,10 @@ class VisiblePostsList extends Component {
     }
 
     componentWillMount() {
-        debugger
         this.props.loadPosts()
     }
 
     render() {
-        debugger
         const { postsToDisplay } = this.props
 
         return (
@@ -35,10 +33,8 @@ function mapStateToProps(state) {
     const {
         entities: {posts}
     } = state
-    debugger
     const postsToDisplay = []
     _.forOwn(posts, (post, key) => {
-        debugger
         postsToDisplay.push(post)
     })
 

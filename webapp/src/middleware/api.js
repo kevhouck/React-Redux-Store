@@ -11,7 +11,6 @@ function callApi(endpoint, method, jwt, schema) {
         method: method,
         headers: {'Authorization': 'Bearer ${jwt}'}
     }).then(({status, data}) => {
-        debugger
         if (status !== 200) {
             return Promise.reject(data)
         }
