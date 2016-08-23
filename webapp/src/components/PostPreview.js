@@ -1,10 +1,10 @@
 import React from 'react'
+var ReactMarkdown = require('react-markdown');
 
 export default function ({title, author, content}) {
     return (
-        <div>
-            <p>{title}</p>
-            <p>{content}</p>
-        </div>
+        <span>
+            <ReactMarkdown source={content}/>
+        </span>
     )
 }

@@ -11,6 +11,18 @@ class VisiblePostsList extends Component {
 
     componentWillMount() {
         this.props.loadPosts()
+        window.addEventListener('scroll', this.handleScroll.bind(this))
+    }
+
+    handleScroll(event) {
+        event.preventDefault()
+        if (this.checkIfWindowAtBottom()) {
+            this.props.loadPosts()
+        }
+    }
+
+    checkIfWindowAtBottom() {
+        return (window.innerHeight + window.scrollY) >= document.body.offsetHeight
     }
 
     render() {
