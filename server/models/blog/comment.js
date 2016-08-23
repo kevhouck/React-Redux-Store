@@ -7,6 +7,14 @@ var commentSchema = mongoose.Schema({
     submittedOn: Date
 });
 
+commentSchema.options.toJSON = {
+    virtuals: true,
+    transform: function (doc, ret, options ) {
+        ret.id = ret._id
+        delete ret._id
+    }
+};
+
 var Comment = mongoose.model('Comment', commentSchema);
 
 exports.module = Comment;

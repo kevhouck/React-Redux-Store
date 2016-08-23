@@ -15,6 +15,14 @@ var cupcakeSchema = mongoose.Schema({
     }
 });
 
+cupcakeSchema.options.toJSON = {
+    virtuals: true,
+    transform: function (doc, ret, options ) {
+        ret.id = ret._id
+        delete ret._id
+    }
+};
+
 var Cupcake = mongoose.model('Cupcake', cupcakeSchema);
 
 module.exports = Cupcake;

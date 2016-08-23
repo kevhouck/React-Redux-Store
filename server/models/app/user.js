@@ -31,6 +31,15 @@ var userSchema = mongoose.Schema({
     }
 });
 
+userSchema.options.toJSON = {
+    virtuals: true,
+    transform: function (doc, ret, options ) {
+        ret.id = ret._id
+        delete ret._id
+        delete ret.hashedPassword
+    }
+};
+
 var User = mongoose.model('User', userSchema);
 
 module.exports = User;
