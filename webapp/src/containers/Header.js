@@ -29,7 +29,6 @@ class Header extends Component {
                     <Tab label={"Home"} onActive={ this.props.goToHome }/>
                     <Tab label={"Blog"} onActive={ this.props.goToBlog }/>
                     <Tab label={"Store"} onActive={ this.props.goToStore }/>
-                    <Tab label={"About"} onActive={ this.props.goToAbout }/>
                 </Tabs>
             </div>
         )

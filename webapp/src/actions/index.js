@@ -57,7 +57,3 @@ export const goToBlog = () => {
 export const goToStore = () => {
     return push('/store')
 }
-
-export const goToAbout = () => {
-    return push('/about')
-}
