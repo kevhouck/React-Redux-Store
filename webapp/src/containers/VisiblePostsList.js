@@ -26,11 +26,15 @@ class VisiblePostsList extends Component {
     }
 
     render() {
+        const divStyle = {
+            paddingLeft: 100,
+            paddingRight: 100
+        }
+
         const { postsToDisplay } = this.props
 
         return (
-            <div>
-                <p>Visible posts list</p>
+            <div style={divStyle}>
                 <PostsList posts={postsToDisplay}/>
             </div>
         )

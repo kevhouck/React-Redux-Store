@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 var banner = require('../assets/banner.jpg')
 import { goToHome, goToBlog, goToStore, goToAbout} from '../actions'
+import _ from 'lodash'
 
 class Header extends Component {
     constructor(props) {
@@ -20,15 +21,16 @@ class Header extends Component {
             width: "100%"
         }
 
+        const { activeTab } = this.props
         return (
             <div>
                 <div style={divStyle}>
                     <img style={imgStyle} src={banner}/>
                 </div>
-                <Tabs>
-                    <Tab label={"Home"} onActive={ this.props.goToHome }/>
-                    <Tab label={"Blog"} onActive={ this.props.goToBlog }/>
-                    <Tab label={"Store"} onActive={ this.props.goToStore }/>
+                <Tabs value={activeTab}>
+                    <Tab label={"Home"} value="home" onActive={ this.props.goToHome }/>
+                    <Tab label={"Blog"} value="blog" onActive={ this.props.goToBlog }/>
+                    <Tab label={"Store"} value="store" onActive={ this.props.goToStore }/>
                 </Tabs>
             </div>
         )
@@ -36,7 +38,21 @@ class Header extends Component {
 }
 
 function mapStateToProps(state) {
-    return {}
+
+    const { routing: { locationBeforeTransitions: { pathname } }} = state
+    var activeTab
+
+    if (pathname === '/') {
+        activeTab = 'home'
+    } else if (_.startsWith(pathname, '/blog')) {
+        activeTab = 'blog'
+    } else if (_.startsWith(pathname, '/store')) {
+        activeTab = 'store'
+    }
+
+    return {
+        activeTab
+    }
 }
 
 function mapDispatchToProps(dispatch) {

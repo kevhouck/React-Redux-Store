@@ -47,7 +47,7 @@ export function loadPosts() {
 }
 
 export const goToHome = () => {
-    return push('/home')
+    return push('/')
 }
 
 export const goToBlog = () => {
