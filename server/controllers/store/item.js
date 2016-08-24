@@ -2,13 +2,13 @@ var Item = require('../../models/store/item');
 
 var create = function (req, res) {
     var b = req.body;
-    var cupcake = new Item({
+    var item = new Item({
         name: b.name,
         description: b.description,
         price: b.price
     });
-    cupcake.save().then(function (cupcake) {
-        res.send(cupcake)
+    item.save().then(function (item) {
+        res.send(item)
     }).catch(function (err) {
         res.status(400).send(err);
     })
@@ -17,20 +17,20 @@ var create = function (req, res) {
 var update = function (req, res) {
     var b = req.body;
     var p = req.params;
-    Item.findOne({_id: p.id}, function (err, cupcake) {
+    Item.findOne({_id: p.id}, function (err, item) {
         if (err) {
             res.status(500);
             return;
         }
-        if (!cupcake) {
-            res.status(404).send('Could not find cupcake with id');
+        if (!item) {
+            res.status(404).send('Could not find item with id');
             return;
         }
-        cupcake.name = b.name;
-        cupcake.description = b.description;
-        cupcake.price = b.price;
-        cupcake.save().then(function (cupcake) {
-            res.send(cupcake)
+        item.name = b.name;
+        item.description = b.description;
+        item.price = b.price;
+        item.save().then(function (item) {
+            res.send(item)
         }).catch(function (err) {
             res.status(400);
         })
@@ -38,28 +38,40 @@ var update = function (req, res) {
 };
 
 var getMany = function (req, res) {
-    Item.find({}, function (err, cupcakes) {
+    var q = req.query
+    if (!q.page) {
+        res.status(400).send('Must specify a page value in the query string')
+        return
+    }
+
+    Item.find({})
+        .sort('-name')
+        .skip((q.page - 1) * 10) // don't have a large collection so this is okay, otherwise will not scale
+        .limit(10)
+        .exec(function (err, items) {
         if (err) {
             res.status(500);
             return;
         }
-        res.send(cupcakes);
+        res.send({
+            items: items
+        });
     })
 };
 
 var deleteOne = function (req, res) {
     var p = req.params;
     Item.findOne({_id: p.id})
-        .exec(function (err, cupcake) {
+        .exec(function (err, item) {
             if (err) {
                 res.status(400);
                 return;
             }
-            if (!cupcake) {
-                res.status(404).send('Could not find cupcake');
+            if (!item) {
+                res.status(404).send('Could not find item');
                 return;
             }
-            res.send('Deleted cupcake')
+            res.send('Deleted item')
         })
 };
 
