@@ -3,7 +3,7 @@ import merge from 'lodash/merge'
 import { routerReducer as routing } from 'react-router-redux'
 import { combineReducers } from 'redux'
 
-function entities(state = { posts: {}, items: {} }, action) {
+function entities(state = { posts: {}, items: {}, users: {} }, action) {
 
     if (action.type === ActionTypes.POSTS_SUCCESS && action.payload && action.payload.entities) {
         return merge({}, state, action.payload.entities)
@@ -11,6 +11,14 @@ function entities(state = { posts: {}, items: {} }, action) {
 
     if (action.type === ActionTypes.ITEMS_SUCCESS && action.payload && action.payload.entities) {
         return merge({}, state, action.payload.entities)
+    }
+
+    if ((action.type === ActionTypes.SIGNUP_SUCCESS || action.type === ActionTypes.LOGIN_SUCCESS)  && action.payload && action.payload.entities) {
+        return merge({}, state, action.payload.entities)
+    }
+
+    if (action.type === ActionTypes.LOGOUT) {
+        return { posts: {}, items: {}, users: {} }
     }
 
     return state
@@ -36,6 +44,10 @@ function visiblePosts(state = { isFetching: false, noMore: false, postsToShow: [
         return merge({}, state, { isFetching: false, pagesLoaded: [nextPage], nextPage: nextPage + 1, noMore })
     }
 
+    if (action.type === ActionTypes.LOGOUT) {
+        return { isFetching: false, noMore: false, postsToShow: [], nextPage: 1, pagesLoaded: [] }
+    }
+
     return state
 }
 
@@ -59,6 +71,24 @@ function visibleItems(state = { isFetching: false, noMore: false, itemsToShow: [
         return merge({}, state, { isFetching: false, pagesLoaded: [nextPage], nextPage: nextPage + 1, noMore })
     }
 
+    if (action.type === ActionTypes.LOGOUT) {
+        return { isFetching: false, noMore: false, itemsToShow: [], nextPage: 1, pagesLoaded: [] }
+    }
+
+    return state
+}
+
+function user(state = { isLoggedIn: false, user: null, credentials: null  }, action) {
+    // handle login or signup logged in user and their credentials
+    if ((action.type === ActionTypes.SIGNUP_SUCCESS || action.type === ActionTypes.LOGIN_SUCCESS)  && action.payload && action.payload.result) {
+        const { user, credentials } = action.payload.result
+        return merge({}, state, { user, credentials, isLoggedIn: true })
+    }
+
+    if (action.type === ActionTypes.LOGOUT) {
+        return { isLoggedIn: false, user: null, credentials: null  }
+    }
+
     return state
 }
 
@@ -66,6 +96,7 @@ const rootReducer = combineReducers({
     entities,
     visiblePosts,
     visibleItems,
+    user,
     routing
 })
 

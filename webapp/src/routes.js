@@ -7,16 +7,25 @@ import Store from './components/Store'
 import VisiblePostsList from './containers/VisiblePostsList'
 import VisiblePostDetail from './containers/VisiblePostDetail'
 import VisibleItemsList from './containers/VisibleItemsList'
+import AuthContainer from './containers/AuthContainer'
+import SignupContainer from './containers/Signup'
+import Login from './containers/Login'
 
 export default (
-    <Route path="/" component={App}>
-        <IndexRoute component={Home}/>
-        <Route path="blog" component={Blog}>
-            <IndexRoute component={VisiblePostsList}/>
-            <Route path=":post" component={VisiblePostDetail}/>
+    <Route path="/">
+        <IndexRoute component={App} children={Home}/>
+        <Route path="blog" component={App}>
+                <IndexRoute component={Blog} children={VisiblePostsList}/>
+                <Route path=":post" component={Blog}  children={VisiblePostDetail}/>
         </Route>
-        <Route path="/store" component={Store}>
-            <IndexRoute component={VisibleItemsList}/>
+        <Route path="store" component={App}>
+            <IndexRoute component={Store} children={VisibleItemsList}/>
+        </Route>
+        <Route path="signup" component={AuthContainer}>
+            <IndexRoute component={SignupContainer}/>
+        </Route>
+        <Route path="login" component={AuthContainer}>
+            <IndexRoute component={Login}/>
         </Route>
         <Redirect from="*" to="/"/>
     </Route>
