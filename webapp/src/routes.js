@@ -6,6 +6,7 @@ import Home from './components/Home'
 import Store from './components/Store'
 import VisiblePostsList from './containers/VisiblePostsList'
 import VisiblePostDetail from './containers/VisiblePostDetail'
+import VisibleItemsList from './containers/VisibleItemsList'
 
 export default (
     <Route path="/" component={App}>
@@ -14,7 +15,9 @@ export default (
             <IndexRoute component={VisiblePostsList}/>
             <Route path=":post" component={VisiblePostDetail}/>
         </Route>
-        <Route path="/store" component={Store}/>
+        <Route path="/store" component={Store}>
+            <IndexRoute component={VisibleItemsList}/>
+        </Route>
         <Redirect from="*" to="/"/>
     </Route>
 )

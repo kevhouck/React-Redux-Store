@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react'
-import { Tabs, Tab } from 'material-ui/Tabs';
+import { Tabs, Tab } from 'material-ui/Tabs'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 var banner = require('../assets/banner.jpg')
 import { goToHome, goToBlog, goToStore, goToAbout} from '../actions'
 import _ from 'lodash'
-
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import ListIcon from 'material-ui/svg-icons/action/list';
 class Header extends Component {
     constructor(props) {
         super(props)
@@ -21,13 +23,21 @@ class Header extends Component {
             width: "100%"
         }
 
+        const tabsStyle = {
+
+        }
+
         const { activeTab } = this.props
         return (
             <div>
+                <AppBar title="Lexie's Cupcakes" showMenuIconButton={false} iconElementRight={
+                    <IconButton><ListIcon/></IconButton>
+                }/>
+
                 <div style={divStyle}>
                     <img style={imgStyle} src={banner}/>
                 </div>
-                <Tabs value={activeTab}>
+                <Tabs style={tabsStyle} value={activeTab}>
                     <Tab label={"Home"} value="home" onActive={ this.props.goToHome }/>
                     <Tab label={"Blog"} value="blog" onActive={ this.props.goToBlog }/>
                     <Tab label={"Store"} value="store" onActive={ this.props.goToStore }/>
