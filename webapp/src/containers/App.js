@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
+import Header from './Header'
 
 class App extends Component {
     constructor(props) {
@@ -8,9 +8,10 @@ class App extends Component {
 
     render () {
         const { children } = this.props
+
         return (
             <div>
-                <p>App</p>
+                <Header/>
                 { children }
             </div>
         )

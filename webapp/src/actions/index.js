@@ -2,6 +2,7 @@ import { CALL_API } from 'redux-api-middleware'
 import { Schemas } from '../schemas'
 import { normalize } from 'normalizr'
 import _ from 'lodash'
+import { push } from 'react-router-redux'
 
 export const POSTS_REQUEST = 'POSTS_REQUEST'
 export const POSTS_SUCCESS = 'POSTS_SUCCESS'
@@ -43,4 +44,20 @@ export function loadPosts() {
 
         return dispatch(fetchPosts(nextPage))
     }
+}
+
+export const goToHome = () => {
+    return push('/home')
+}
+
+export const goToBlog = () => {
+    return push('/blog')
+}
+
+export const goToStore = () => {
+    return push('/store')
+}
+
+export const goToAbout = () => {
+    return push('/about')
 }

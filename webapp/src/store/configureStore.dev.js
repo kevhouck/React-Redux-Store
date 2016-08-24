@@ -2,6 +2,8 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
 import { apiMiddleware } from 'redux-api-middleware';
+import { routerMiddleware } from 'react-router-redux'
+import {browserHistory} from 'react-router'
 import rootReducer from '../reducers'
 import DevTools from '../containers/DevTools'
 
@@ -10,7 +12,7 @@ export default function configureStore(preloadedState) {
     rootReducer,
     preloadedState,
     compose(
-      applyMiddleware(thunk, apiMiddleware, createLogger()),
+      applyMiddleware(thunk, apiMiddleware, routerMiddleware(browserHistory), createLogger()),
       DevTools.instrument()
     )
   )
