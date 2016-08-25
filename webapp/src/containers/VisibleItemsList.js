@@ -7,6 +7,9 @@ import _ from 'lodash'
 class VisibleItemsList extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            loadingItems: true
+        }
     }
 
     componentWillMount() {
@@ -14,10 +17,19 @@ class VisibleItemsList extends Component {
         window.addEventListener('scroll', this.handleScroll.bind(this))
     }
 
+    componentWillReceiveProps() {
+        this.setState({loadingItems: false})
+    }
+
     handleScroll(event) {
         event.preventDefault()
-        if (this.checkIfWindowAtBottom()) {
+        this.checkAndIfThenLoadItems()
+    }
+
+    checkAndIfThenLoadItems() {
+        if (this.checkIfWindowAtBottom() && !this.state.loadingItems) {
             this.props.loadItems()
+            this.setState({loadingItems: true})
         }
     }
 
@@ -26,16 +38,11 @@ class VisibleItemsList extends Component {
     }
 
     render() {
-        const divStyle = {
-
-        }
 
         const { itemsToDisplay } = this.props
 
         return (
-            <div style={divStyle}>
                 <ItemsList items={itemsToDisplay}/>
-            </div>
         )
     }
 }
@@ -49,6 +56,7 @@ function mapStateToProps(state) {
         entities: {items}
     } = state
     const itemsToDisplay = []
+
     _.forOwn(items, (item, key) => {
         itemsToDisplay.push(item)
     })

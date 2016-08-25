@@ -12,14 +12,14 @@ import SignupContainer from './containers/Signup'
 import Login from './containers/Login'
 
 export default (
-    <Route path="/">
-        <IndexRoute component={App} children={Home}/>
-        <Route path="blog" component={App}>
-                <IndexRoute component={Blog} children={VisiblePostsList}/>
-                <Route path=":post" component={Blog}  children={VisiblePostDetail}/>
+    <Route path="/" component={App}>
+        <IndexRoute component={Home}/>
+        <Route path="blog" component={Blog}>
+                <IndexRoute component={VisiblePostsList}/>
+                <Route path=":post" component={VisiblePostDetail}/>
         </Route>
-        <Route path="store" component={App}>
-            <IndexRoute component={Store} children={VisibleItemsList}/>
+        <Route path="store" component={Store}>
+            <IndexRoute component={VisibleItemsList}/>
         </Route>
         <Route path="signup" component={AuthContainer}>
             <IndexRoute component={SignupContainer}/>

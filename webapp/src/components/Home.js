@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import MainTabBar from '../containers/MainTabBar'
 
 class Home extends Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class Home extends Component {
         const { children } = this.props
         return(
             <div>
+                <MainTabBar/>
                 {children}
             </div>
         )

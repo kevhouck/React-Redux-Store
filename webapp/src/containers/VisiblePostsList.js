@@ -7,6 +7,9 @@ import _ from 'lodash'
 class VisiblePostsList extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            loadingPosts: true
+        }
     }
 
     componentWillMount() {
@@ -14,11 +17,20 @@ class VisiblePostsList extends Component {
         window.addEventListener('scroll', this.handleScroll.bind(this))
     }
 
+    componentWillReceiveProps() {
+        this.setState({loadingPosts: false})
+    }
+
+    checkIfAndThenLoadPosts() {
+        if (this.checkIfWindowAtBottom() && !this.state.loadingPosts) {
+            this.props.loadPosts()
+            this.setState({loadingPosts: true})
+        }
+    }
+
     handleScroll(event) {
         event.preventDefault()
-        if (this.checkIfWindowAtBottom()) {
-            this.props.loadPosts()
-        }
+        this.checkIfAndThenLoadPosts()
     }
 
     checkIfWindowAtBottom() {

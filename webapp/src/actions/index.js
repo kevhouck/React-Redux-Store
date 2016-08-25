@@ -7,12 +7,10 @@ import { push } from 'react-router-redux'
 export const POSTS_REQUEST = 'POSTS_REQUEST'
 export const POSTS_SUCCESS = 'POSTS_SUCCESS'
 export const POSTS_FAILURE = 'POSTS_FAILURE'
-export const MOVE_VISIBLE_POSTS_CURSOR = 'MOVE_VISIBLE_POSTS_CURSOR'
 
 export const ITEMS_REQUEST = 'ITEMS_REQUEST'
 export const ITEMS_SUCCESS = 'ITEMS_SUCCESS'
 export const ITEMS_FAILURE = 'ITEMS_FAILURE'
-export const MOVE_VISIBLE_ITEMS_CURSOR = 'MOVE_VISIBLE_ITEMS_CURSOR'
 
 export const SIGNUP_REQUEST = 'SIGNUP_REQUEST'
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS'
@@ -43,17 +41,12 @@ function fetchPosts(nextPage) {
 
 export function loadPosts() {
     return (dispatch, getState) => {
-        const { isFetching, noMore, nextPage, pagesLoaded } = getState().visiblePosts
-
-        // if the page is cached
-        if (_.includes(pagesLoaded, nextPage)) {
-            return dispatch({
-                type: MOVE_VISIBLE_POSTS_CURSOR
-            })
-        }
-
+        const {
+            visiblePosts: { isFetching, noMore, nextPage },
+            routing: { locationBeforeTransitions: { pathname } }
+        } = getState()
         // if we are already fetching a the page or there are no more to fetch
-        if (isFetching || noMore) {
+        if (isFetching || noMore || pathname !== '/blog') {
             return
         }
 
@@ -80,17 +73,14 @@ function fetchItems(nextPage) {
 
 export function loadItems() {
     return (dispatch, getState) => {
-        const { isFetching, noMore, nextPage, pagesLoaded } = getState().visibleItems
+        const {
+            visibleItems: { isFetching, noMore, nextPage },
+            routing: { locationBeforeTransitions: { pathname } }
+        } = getState()
 
-        // if the page is cached
-        if (_.includes(pagesLoaded, nextPage)) {
-            return dispatch({
-                type: MOVE_VISIBLE_ITEMS_CURSOR
-            })
-        }
 
         // if we are already fetching a the page or there are no more to fetch
-        if (isFetching || noMore) {
+        if (isFetching || noMore || pathname !== '/store') {
             return
         }
 
