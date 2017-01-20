@@ -9,7 +9,7 @@ var cors = require('cors');
 
 
 // setup db
-mongoose.connect('mongodb://localhost/lexies_cupcakes');
+mongoose.connect('mongodb://localhost/webstoredb');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
